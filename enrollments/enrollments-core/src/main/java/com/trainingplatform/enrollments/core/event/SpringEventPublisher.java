@@ -3,7 +3,7 @@ package com.trainingplatform.enrollments.core.event;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("enrollmentsSpringEventPublisher")
 class SpringEventPublisher implements EventPublisher {
 
     private final ApplicationEventPublisher delegate;
