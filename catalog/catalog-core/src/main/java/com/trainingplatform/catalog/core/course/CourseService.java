@@ -1,6 +1,7 @@
 package com.trainingplatform.catalog.core.course;
 
 import com.trainingplatform.catalog.api.CourseDto;
+import com.trainingplatform.catalog.api.CourseNotFoundException;
 import com.trainingplatform.catalog.api.CoursePublishedEvent;
 import com.trainingplatform.catalog.core.event.EventPublisher;
 import org.springframework.stereotype.Service;

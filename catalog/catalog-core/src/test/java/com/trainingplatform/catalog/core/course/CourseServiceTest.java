@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.trainingplatform.catalog.api.CourseDto;
+import com.trainingplatform.catalog.api.CourseNotFoundException;
 import com.trainingplatform.catalog.api.CoursePublishedEvent;
 import com.trainingplatform.catalog.core.event.EventPublisher;
 import java.util.Optional;
