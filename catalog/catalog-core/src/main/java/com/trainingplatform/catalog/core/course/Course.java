@@ -42,6 +42,10 @@ class Course {
         return new Course(title.trim(), capacity, city.trim());
     }
 
+    void publish() {
+        this.published = true;
+    }
+
     Long getId() {
         return id;
     }
