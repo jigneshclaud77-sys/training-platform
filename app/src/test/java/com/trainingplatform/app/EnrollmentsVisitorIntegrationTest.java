@@ -57,10 +57,11 @@ class EnrollmentsVisitorIntegrationTest {
         assertEquals(1, applicationEvents.stream(EnrollmentCreatedEvent.class)
                 .filter(event -> event.courseId() == courseId)
                 .count());
+        assertEquals(1, notificationsFor(output, courseId));
     }
 
     @Test
-    void unpublishedCourseIsRejected() throws Exception {
+    void unpublishedCourseIsRejected(CapturedOutput output) throws Exception {
         long courseId = createCourse(5);
 
         mockMvc.perform(enroll("Ann", courseId))
@@ -69,10 +70,11 @@ class EnrollmentsVisitorIntegrationTest {
         assertEquals(0, applicationEvents.stream(EnrollmentCreatedEvent.class)
                 .filter(event -> event.courseId() == courseId)
                 .count());
+        assertEquals(0, notificationsFor(output, courseId));
     }
 
     @Test
-    void fullCourseIsRejected() throws Exception {
+    void fullCourseIsRejected(CapturedOutput output) throws Exception {
         long courseId = createCourse(1);
         publish(courseId);
 
@@ -82,6 +84,7 @@ class EnrollmentsVisitorIntegrationTest {
         assertEquals(1, applicationEvents.stream(EnrollmentCreatedEvent.class)
                 .filter(event -> event.courseId() == courseId)
                 .count());
+        assertEquals(1, notificationsFor(output, courseId));
     }
 
     @Test
@@ -97,6 +100,13 @@ class EnrollmentsVisitorIntegrationTest {
 
         mockMvc.perform(enroll(" ", courseId))
                 .andExpect(status().isBadRequest());
+    }
+
+    private static long notificationsFor(CapturedOutput output, long courseId) {
+        return output.getOut().lines()
+                .filter(line -> line.contains("Notification to ann@x.com: ")
+                        && line.contains("enrolled in course " + courseId + "."))
+                .count();
     }
 
     private long createCourse(int capacity) throws Exception {
