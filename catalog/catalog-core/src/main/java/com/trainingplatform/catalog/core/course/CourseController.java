@@ -30,4 +30,9 @@ class CourseController {
     CourseDto get(@PathVariable long id) {
         return service.get(id);
     }
+
+    @PostMapping("/{id}/publish")
+    CourseDto publish(@PathVariable long id) {
+        return service.publish(id);
+    }
 }
