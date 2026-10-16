@@ -1,6 +1,10 @@
 spring:
   application:
     name: training-platform
+  datasource:
+    url: jdbc:h2:mem:trainingplatform;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
 
 server:
   port: 8080
