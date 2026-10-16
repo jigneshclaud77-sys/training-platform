@@ -41,6 +41,11 @@ class ArchitectureTest {
     @ArchTest
     static final ArchRule notifications_api_is_free_of_spring_and_jpa = apiIsFreeOfSpringAndJpa("notifications");
 
+    @ArchTest
+    static final ArchRule enrollments_and_catalog_do_not_depend_on_notifications =
+            noClasses().that().resideInAnyPackage("com.trainingplatform.enrollments..", "com.trainingplatform.catalog..")
+                    .should().dependOnClassesThat().resideInAPackage("com.trainingplatform.notifications..");
+
     private static ArchRule apiIsFreeOfSpringAndJpa(String domain) {
         return noClasses().that().resideInAPackage("com.trainingplatform." + domain + ".api..")
                 .should().dependOnClassesThat().resideInAnyPackage("org.springframework..", "jakarta.persistence..")
