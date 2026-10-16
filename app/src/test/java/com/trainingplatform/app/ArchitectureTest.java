@@ -29,6 +29,12 @@ class ArchitectureTest {
     static final ArchRule notifications_does_not_use_other_domain_internals =
             internalsOf("notifications", "catalog", "enrollments");
 
+    @ArchTest
+    static final ArchRule catalog_api_is_free_of_spring_and_jpa =
+            noClasses().that().resideInAPackage("com.trainingplatform.catalog.api..")
+                    .should().dependOnClassesThat().resideInAnyPackage("org.springframework..", "jakarta.persistence..")
+                    .allowEmptyShould(true);
+
     private static ArchRule internalsOf(String domain, String... otherDomains) {
         DescribedPredicate<JavaClass> otherInternals = DescribedPredicate.alwaysFalse();
         for (String other : otherDomains) {
