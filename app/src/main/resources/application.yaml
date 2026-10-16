@@ -5,6 +5,11 @@ spring:
     url: jdbc:h2:mem:trainingplatform;DB_CLOSE_DELAY=-1
     username: sa
     password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
 
 server:
   port: 8080
