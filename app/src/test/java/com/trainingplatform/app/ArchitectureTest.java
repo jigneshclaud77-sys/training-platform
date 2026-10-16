@@ -35,6 +35,18 @@ class ArchitectureTest {
                     .should().dependOnClassesThat().resideInAnyPackage("org.springframework..", "jakarta.persistence..")
                     .allowEmptyShould(true);
 
+    @ArchTest
+    static final ArchRule enrollments_api_is_free_of_spring_and_jpa = apiIsFreeOfSpringAndJpa("enrollments");
+
+    @ArchTest
+    static final ArchRule notifications_api_is_free_of_spring_and_jpa = apiIsFreeOfSpringAndJpa("notifications");
+
+    private static ArchRule apiIsFreeOfSpringAndJpa(String domain) {
+        return noClasses().that().resideInAPackage("com.trainingplatform." + domain + ".api..")
+                .should().dependOnClassesThat().resideInAnyPackage("org.springframework..", "jakarta.persistence..")
+                .allowEmptyShould(true);
+    }
+
     private static ArchRule internalsOf(String domain, String... otherDomains) {
         DescribedPredicate<JavaClass> otherInternals = DescribedPredicate.alwaysFalse();
         for (String other : otherDomains) {
